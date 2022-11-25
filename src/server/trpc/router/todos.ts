@@ -32,4 +32,14 @@ export default router({
         },
       });
     }),
+  createToDo: protectedProcedure
+    .input(z.object({ title: z.string().min(4) }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.todo.create({
+        data: {
+          title: input.title,
+          userId: ctx.user.id,
+        },
+      });
+    }),
 });

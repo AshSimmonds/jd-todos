@@ -1,12 +1,11 @@
 import { type Todo } from "@prisma/client";
-import { Show, type Component, Switch, Match, type Setter } from "solid-js";
+import { Show, type Component, Switch, Match } from "solid-js";
 import Spinner from "../Spinner";
 
 interface IToDoItemProps extends Omit<Todo, "userId"> {
   loading?: boolean;
   itemIsLoading?: boolean;
   onClick: () => void;
-  setTodoModal: Setter<Omit<Todo, "userId">>;
 }
 
 const fixElemSize = (title: string) => {
@@ -19,17 +18,7 @@ const fixElemSize = (title: string) => {
 
 const ToDoItem: Component<IToDoItemProps> = (props) => {
   return (
-    <div
-      onContextMenu={(e) => {
-        e.preventDefault();
-        props.setTodoModal({
-          id: props.id,
-          title: props.title,
-          completed: props.completed,
-        });
-      }}
-      class="bg-gray-300 relative rounded-lg p-2.5 w-40 h-20 flex flex-col items-center gap-2"
-    >
+    <div class="bg-gray-300 relative rounded-lg p-2.5 w-40 h-20 flex flex-col items-center gap-2">
       <h1 class="text-sm font-bold text-gray-500">
         {fixElemSize(props.title)}
       </h1>

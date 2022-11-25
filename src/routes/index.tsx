@@ -1,21 +1,18 @@
 import { Match, For, Switch, createSignal, Show } from "solid-js";
 import {
+  CreateTodoModal,
   Pagination,
   Spinner,
   ToDoItem,
-  ToDoModal,
   UserDashboard,
 } from "~/components";
 import { withProtected } from "~/layouts/Protected";
 import { trpc } from "~/utils/trpc";
 import { Title } from "solid-start";
-import { type Todo } from "@prisma/client";
 
 export const { routeData, Page } = withProtected((user) => {
   const [loadingTodo, setLoadingTodo] = createSignal<string | null>(null);
-  const [todoModal, setTodoModal] = createSignal<null | Omit<Todo, "userId">>(
-    null
-  );
+  const [creatingTodo, setCreatingTodo] = createSignal(false);
   const [currentPage, setCurrentPage] = createSignal(1);
   const ctx = trpc.useContext();
   const todos = trpc.todos.getUserTodos.useQuery(
@@ -25,7 +22,7 @@ export const { routeData, Page } = withProtected((user) => {
     }),
     {
       get refetchOnWindowFocus() {
-        return todoModal() === null;
+        return !creatingTodo();
       },
     }
   );
@@ -41,11 +38,30 @@ export const { routeData, Page } = withProtected((user) => {
     <>
       <Title>My Todos</Title>
       <div class="flex flex-col gap-2 items-center">
-        <UserDashboard withBg {...user}>
+        <UserDashboard relative withBg {...user}>
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
+          <button
+            onClick={() => setCreatingTodo(true)}
+            class="absolute transition-opacity hover:(opacity-50) border-none top-3 right-2 rounded-full p-2.5 bg-gray-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-purple-600 cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+          </button>
         </UserDashboard>
         <Switch>
           <Match when={todos.isLoading}>
@@ -58,7 +74,6 @@ export const { routeData, Page } = withProtected((user) => {
                   {(todo) => (
                     <ToDoItem
                       {...todo}
-                      setTodoModal={setTodoModal}
                       itemIsLoading={loadingTodo() === todo.id}
                       loading={changeToDoStatus.isLoading}
                       onClick={() => {
@@ -76,8 +91,11 @@ export const { routeData, Page } = withProtected((user) => {
             )}
           </Match>
         </Switch>
-        <Show when={todoModal()} keyed>
-          {(todo) => <ToDoModal setTodoModal={setTodoModal} {...todo} />}
+        <Show when={creatingTodo()}>
+          <CreateTodoModal
+            onSuccessfulCreate={() => ctx.todos.getUserTodos.invalidate()}
+            setCreatingTodo={setCreatingTodo}
+          />
         </Show>
       </div>
     </>
