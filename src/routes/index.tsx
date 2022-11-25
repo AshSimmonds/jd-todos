@@ -34,6 +34,7 @@ export const { routeData, Page } = withProtected((user) => {
       setLoadingTodo(null);
     },
   });
+
   return (
     <>
       <Title>My Todos</Title>
@@ -45,11 +46,11 @@ export const { routeData, Page } = withProtected((user) => {
           />
           <button
             onClick={() => setCreatingTodo(true)}
-            class="absolute transition-opacity hover:(opacity-50) border-none top-3 right-2 rounded-full p-2.5 bg-gray-300"
+            class="absolute cursor-pointer transition-opacity hover:(opacity-50) border-none top-3 right-2 rounded-full p-2.5 bg-gray-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 text-purple-600 cursor-pointer"
+              class="h-6 w-6 text-purple-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
