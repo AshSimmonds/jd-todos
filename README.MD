@@ -1,3 +1,5 @@
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/203999839-1cd99725-30bb-48aa-ac71-596fbcc44a91.png)
+
 # Create JD App
 
 This project was created using [Create JD App](https://github.com/OrJDev/create-jd-app)
@@ -40,3 +42,4 @@ export default defineConfig(() => {
 ### You Are Done
 
 Create a github repo and push your code to it, then deploy it to vercel (:
+
