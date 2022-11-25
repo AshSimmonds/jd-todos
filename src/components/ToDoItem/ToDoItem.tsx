@@ -8,10 +8,11 @@ interface IToDoItemProps extends Omit<Todo, "userId"> {
   onClick: () => void;
 }
 
+export const MAX_TODO_TITLE = 15;
+
 const fixElemSize = (title: string) => {
-  const MAX = 15;
-  if (title.length >= MAX) {
-    return title.slice(0, MAX) + ".";
+  if (title.length >= MAX_TODO_TITLE) {
+    return title.slice(0, MAX_TODO_TITLE) + ".";
   }
   return title;
 };

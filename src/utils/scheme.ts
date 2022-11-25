@@ -5,8 +5,11 @@ import {
   type ZodRawShape,
 } from "zod";
 import { toast } from "solid-toast";
+import { MAX_TODO_TITLE } from "~/components/ToDoItem/ToDoItem";
 
-export const createToDoScheme = z.object({ title: z.string().min(4) });
+export const createToDoScheme = z.object({
+  title: z.string().min(4).max(MAX_TODO_TITLE),
+});
 
 export const formatErrors = (
   errors: ZodFormattedError<Map<string, string>, string>
