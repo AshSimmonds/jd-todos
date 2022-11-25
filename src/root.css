@@ -1,0 +1,33 @@
+/* feel free to modify uno in here */
+
+body {
+  background-color: whitesmoke;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translate(-100vw, -50%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    transform: translate(-100vw, -50%);
+  }
+}
+
+.anm-slide-in {
+  animation: slide-in 0.55s ease-in-out;
+}
+
+.anm-slide-out {
+  animation: slide-out 0.55s ease-in-out;
+}
