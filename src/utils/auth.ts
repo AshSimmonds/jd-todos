@@ -14,6 +14,7 @@ export const sessionStorage = createCookieSessionStorage({
     path: "/",
     secrets: [clientEnv.VITE_SESSION_SECRET],
     secure: true,
+    maxAge: 60 * 60 * 24 * 30,
   },
 });
 
