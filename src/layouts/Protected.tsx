@@ -20,9 +20,9 @@ export const withProtected = (Component: ProtectedRouter) => {
     Page: () => {
       const current = useRouteData<typeof routeData>();
       return (
-        <Switch fallback={<Spinner />}>
-          <Match when={current() && !(current() instanceof Response)}>
-            <Component {...(current() as User)} />
+        <Switch fallback={<Component {...(current() as User)} />}>
+          <Match when={current.loading || current() instanceof Response}>
+            <Spinner />
           </Match>
         </Switch>
       );
