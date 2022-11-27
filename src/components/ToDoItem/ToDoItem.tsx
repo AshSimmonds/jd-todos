@@ -1,11 +1,10 @@
 import { type Todo } from "@prisma/client";
-import { Show, type Component, Switch, Match } from "solid-js";
+import { Show, type Component, Switch, Match, type Accessor } from "solid-js";
+import { trpc } from "~/utils/trpc";
 import Spinner from "../Spinner";
 
 interface IToDoItemProps extends Omit<Todo, "userId"> {
-  loading?: boolean;
-  itemIsLoading?: boolean;
-  onClick: () => void;
+  currentPage: Accessor<number>;
 }
 
 export const MAX_TODO_TITLE = 15;
@@ -18,23 +17,35 @@ const fixElemSize = (title: string) => {
 };
 
 const ToDoItem: Component<IToDoItemProps> = (props) => {
+  const ctx = trpc.useContext();
+  const changeToDoStatus = trpc.todos.changeToDoStatus.useMutation({
+    onSuccess: async () => {
+      await ctx.todos.getUserTodos.invalidate({
+        currentPage: props.currentPage(),
+      });
+    },
+  });
   return (
     <div class="bg-gray-300 relative rounded-lg p-2.5 w-40 h-20 flex flex-col items-center gap-2">
       <h1 class="text-sm font-bold text-gray-500">
         {fixElemSize(props.title)}
       </h1>
-      <Show when={props.itemIsLoading}>
-        <div class="absolute top-2 right-1">
+      <Show when={changeToDoStatus.isLoading}>
+        <div class="absolute top-2 right-1 animate-fade-in animate-duration-500ms">
           <Spinner sm />
         </div>
       </Show>
       <button
-        disabled={props.loading}
-        onClick={() => props.onClick()}
+        onClick={() =>
+          changeToDoStatus.mutateAsync({
+            id: props.id,
+            status: !props.completed,
+          })
+        }
         classList={{
           "bg-red": !props.completed,
           "bg-green": props.completed,
-          "cursor-pointer": !props.loading,
+          "cursor-pointer": !changeToDoStatus.isLoading,
           "hover:(opacity-50) transition-all border-none  p-2 flex items-center justify-center rounded-full":
             true,
         }}

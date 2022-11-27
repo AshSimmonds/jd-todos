@@ -6,7 +6,6 @@ import NiceButton from "../NiceButton";
 interface IUserDashboardProps extends User {
   children?: JSX.Element;
   withBg?: boolean;
-  relative?: boolean;
 }
 const UserDashboard: Component<IUserDashboardProps> = (props) => {
   return (
@@ -14,8 +13,7 @@ const UserDashboard: Component<IUserDashboardProps> = (props) => {
       classList={{
         "flex flex-col items-center": true,
         "gap-4": !props.withBg,
-        "rounded-lg bg-gray-200 p-3 min-w-3/4 sm:min-w-sm": props.withBg,
-        relative: props.relative,
+        "rounded-lg bg-gray-200 p-3 w-3/4 sm:w-sm": props.withBg,
       }}
     >
       <img src={props.avatar} class="h-16 rounded-full w-16" />
