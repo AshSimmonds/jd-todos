@@ -4,11 +4,11 @@ import { createToDoScheme, TOAST_CONFIG, validateScheme } from "~/utils/scheme";
 import { trpc } from "~/utils/trpc";
 import Spinner from "../Spinner";
 
-interface ICreateTodoModalProps {
+interface ICreateTodoProps {
   currentPage: Accessor<number>;
 }
 
-const CreateTodoModal: Component<ICreateTodoModalProps> = (props) => {
+const CreateTodoModal: Component<ICreateTodoProps> = (props) => {
   const [title, setTitle] = createSignal("");
   const ctx = trpc.useContext();
   const createToDo = trpc.todos.createToDo.useMutation({
@@ -43,7 +43,7 @@ const CreateTodoModal: Component<ICreateTodoModalProps> = (props) => {
           onChange={(e) => setTitle(e.currentTarget.value)}
           placeholder="Title"
           type="text"
-          class="border-2 placeholder:text-gray-300 border-gray-300 rounded-lg p-2.5 w-20vw focus:outline-none"
+          class="border-2 font-semibold text-gray-400 placeholder:text-gray-300 border-gray-300 rounded-lg p-2.5 w-20vw focus:outline-none"
         />
         <button
           disabled={createToDo.isLoading}

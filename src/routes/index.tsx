@@ -16,10 +16,7 @@ export const { routeData, Page } = withProtected((user) => {
     // eslint-disable-next-line solid/reactivity
     () => ({
       currentPage: currentPage(),
-    }),
-    {
-      refetchOnWindowFocus: false,
-    }
+    })
   );
 
   return (
