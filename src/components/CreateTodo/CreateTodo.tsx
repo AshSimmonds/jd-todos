@@ -43,7 +43,7 @@ const CreateTodoModal: Component<ICreateTodoProps> = (props) => {
           onChange={(e) => setTitle(e.currentTarget.value)}
           placeholder="Title"
           type="text"
-          class="border-2 font-semibold text-gray-400 placeholder:text-gray-300 border-gray-300 rounded-lg p-2.5 w-20vw focus:outline-none"
+          class="border-2 font-semibold text-gray-400 placeholder:text-gray-300 border-gray-300 rounded-lg p-2.5 w-50vw sm:w-20vw focus:outline-none"
         />
         <button
           disabled={createToDo.isLoading}

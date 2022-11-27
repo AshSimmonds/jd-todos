@@ -22,7 +22,7 @@ export const { routeData, Page } = withProtected((user) => {
   return (
     <>
       <Title>My Todos</Title>
-      <div class="flex flex-col gap-2 items-center">
+      <div class="flex flex-col gap-2 items-center justify-center w-full">
         <UserDashboard withBg {...user}>
           <Pagination
             currentPage={currentPage}
