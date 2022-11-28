@@ -22,12 +22,6 @@ const CreateTodoModal: Component<ICreateTodoProps> = (props) => {
       setTitle("");
     },
   });
-  const handleOnCreate = async () => {
-    if (validateScheme(createToDoScheme, { title: title() })) {
-      await createToDo.mutateAsync({ title: title() });
-      toast.success("Todo created!", TOAST_CONFIG);
-    }
-  };
 
   return (
     <div class="flex flex-col gap-1 relative">
@@ -47,11 +41,15 @@ const CreateTodoModal: Component<ICreateTodoProps> = (props) => {
         />
         <button
           disabled={createToDo.isLoading}
-          onClick={handleOnCreate}
+          onClick={async () => {
+            if (validateScheme(createToDoScheme, { title: title() })) {
+              await createToDo.mutateAsync({ title: title() });
+              toast.success("Todo created!", TOAST_CONFIG);
+            }
+          }}
           classList={{
             "border-none rounded-full p-2.5": true,
-            "cursor-pointer transition-opacity hover:(opacity-50) bg-gray-300":
-              !createToDo.isLoading,
+            "cursor-pointer bg-gray-300": !createToDo.isLoading,
             "bg-gray-400": createToDo.isLoading,
           }}
         >

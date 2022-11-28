@@ -20,15 +20,28 @@ export default router({
         take: MAX_TODOS,
       });
     }),
-  changeToDoStatus: protectedProcedure
-    .input(z.object({ id: z.string(), status: z.boolean() }))
+  modifyToDo: protectedProcedure
+    .input(
+      z.object({
+        type: z.enum(["update", "delete"]),
+        id: z.string(),
+        status: z.boolean().default(false),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.todo.update({
+      if (input.type === "update") {
+        return await ctx.prisma.todo.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            completed: input.status,
+          },
+        });
+      }
+      return await ctx.prisma.todo.delete({
         where: {
           id: input.id,
-        },
-        data: {
-          completed: input.status,
         },
       });
     }),
