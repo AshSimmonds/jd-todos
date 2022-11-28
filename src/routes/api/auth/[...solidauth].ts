@@ -1,5 +1,5 @@
 import { authenticator } from "~/server/auth";
-import { createSolidAuthHandler } from "solidjs-auth";
+import { createSolidAuthHandler } from "solid-auth";
 import { type User } from "@prisma/client";
 
 const handler = createSolidAuthHandler<User>(authenticator);
