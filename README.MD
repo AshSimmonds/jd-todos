@@ -1,7 +1,8 @@
 ### Showcase
 
-![Screenshot_1](https://user-images.githubusercontent.com/91349014/204144271-53a61a9b-02dd-4a2f-a06c-cf91eaae59bf.png)
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/204367118-c6448aaa-908a-4926-8dbb-b332e18b610a.png)
 [Try it yourself](https://jd-todos.vercel.app)
+
 
 # Create JD App
 
