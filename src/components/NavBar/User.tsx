@@ -48,7 +48,7 @@ const User: Component<{
                 </span>
               </div>
               <button
-                onClick={() => authClient.logout({ redirectTo: "/account" })}
+                onClick={() => authClient.logout({ redirectTo: "/login" })}
                 class={
                   "bg-gray-3 border-none rounded-lg px-8 py-1.5 flex items-center justify-center text-sm font-bold text-purple-5 cursor-pointer hover:opacity-75 transition-opacity"
                 }
