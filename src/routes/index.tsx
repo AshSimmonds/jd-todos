@@ -4,13 +4,12 @@ import {
   Pagination,
   Spinner,
   ToDoItem,
-  UserDashboard,
+  Protected,
 } from "~/components";
-import { withProtected } from "~/layouts/Protected";
 import { trpc } from "~/utils/trpc";
 import { Title } from "solid-start";
 
-export const { routeData, Page } = withProtected((user) => {
+export const { routeData, Page } = Protected(() => {
   const [currentPage, setCurrentPage] = createSignal(1);
   const todos = trpc.todos.getUserTodos.useQuery(
     // eslint-disable-next-line solid/reactivity
@@ -21,14 +20,9 @@ export const { routeData, Page } = withProtected((user) => {
 
   return (
     <>
-      <Title>My Todos</Title>
+      <Title>Create JD App - My Todos</Title>
       <div class="flex flex-col gap-2 items-center justify-center w-full">
-        <UserDashboard withBg {...user}>
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </UserDashboard>
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
         <CreateTodo currentPage={currentPage} />
         <Switch>
           <Match when={todos.isLoading}>

@@ -1,8 +1,7 @@
 ### Showcase
 
-![Screenshot_1](https://user-images.githubusercontent.com/91349014/204367118-c6448aaa-908a-4926-8dbb-b332e18b610a.png)
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/208101437-aaf29350-e34a-4a51-92a1-f5475b95b77f.png)
 [Try it yourself](https://jd-todos.vercel.app)
-
 
 # Create JD App
 
@@ -25,17 +24,16 @@ import UnoCSS from "unocss/vite";
 import { defineConfig } from "vite";
 // @ts-expect-error no typing
 import vercel from "solid-start-vercel";
-  
+
 export default defineConfig(() => {
   dotenv.config();
   return {
     plugins: [
-          solid({ ssr: false, adapter: vercel({ edge: false }) }),
-          UnoCSS(),
-        ],
+      solid({ ssr: false, adapter: vercel({ edge: false }) }),
+      UnoCSS(),
+    ],
   };
 });
-  
 ```
 
 ### Enviroment Variables
@@ -46,4 +44,3 @@ export default defineConfig(() => {
 ### You Are Done
 
 Create a github repo and push your code to it, then deploy it to vercel (:
-
